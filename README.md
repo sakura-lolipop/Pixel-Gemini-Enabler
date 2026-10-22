@@ -63,6 +63,15 @@ adb shell "pm enable com.google.android.partnersetup; pm enable com.google.andro
 
 系统 OTA 大版本更新后建议跑一次 `status` 复核组件状态。
 
+## 两种形态
+
+| 形态 | 需 root | 特点 |
+|---|---|---|
+| `gemini_guard.sh`（本目录） | 否，USB 调试即可 | 8 个入口组件级禁用，on/off/status 开关 |
+| [`lsposed-module/`](lsposed-module/README.md) | 是（LSPosed） | hook `setApplicationEnabledSetting` 最后一跳，任何入口发起都拦得住，PartnerSetup 功能零损失 |
+
+两者叠加运行完全兼容（双保险）。
+
 ## 已知边界
 
 - 触达禁用 API 的入口由反编译确认（PartnerSetup v100.740061114 / Pixel Android 17 实测）。
